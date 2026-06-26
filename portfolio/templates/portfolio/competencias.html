@@ -1,0 +1,59 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>Competências</h2>
+
+{% if request.user.is_authenticated and request.user.groups.filter(name='gestor-portfolio').exists %}
+    <a href="{% url 'competencia_criar' %}">+ Nova Competência</a>
+{% endif %}
+
+<section>
+    {% for comp in competencias %}
+    <article>
+        <header>
+            <h3>{{ comp.nome }}</h3>
+            <p>{{ comp.categoria }} — {{ comp.nivel }}</p>
+        </header>
+
+        {% if comp.descricao %}
+        <section>
+            <h4>Descrição</h4>
+            <ul><li>{{ comp.descricao }}</li></ul>
+        </section>
+        {% endif %}
+
+        <section>
+            <h4>Tecnologias relacionadas</h4>
+            <ul>
+                {% for tec in comp.tecnologias.all %}
+                    <li>{{ tec.nome }}</li>
+                {% empty %}
+                    <li>Nenhuma</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section>
+            <h4>Projetos relacionados</h4>
+            <ul>
+                {% for proj in comp.projetos.all %}
+                    <li>{{ proj.titulo }}</li>
+                {% empty %}
+                    <li>Nenhum</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        {% if request.user.is_authenticated and request.user.groups.filter(name='gestor-portfolio').exists %}
+        <section>
+            <h4>Ações</h4>
+            <ul>
+                <li><a href="{% url 'competencia_editar' comp.id %}">Editar</a></li>
+                <li><a href="{% url 'competencia_apagar' comp.id %}">Apagar</a></li>
+            </ul>
+        </section>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

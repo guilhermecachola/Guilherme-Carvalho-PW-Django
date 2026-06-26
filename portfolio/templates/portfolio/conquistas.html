@@ -1,0 +1,25 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>Conquistas</h2>
+<section>
+    {% for conquista in conquistas %}
+    <article>
+        <header>
+            <h3>{{ conquista.titulo }}</h3>
+            <p>{{ conquista.tipo }} — {{ conquista.data }}</p>
+        </header>
+        <section>
+            <h4>Descrição</h4>
+            <ul><li>{{ conquista.descricao }}</li></ul>
+        </section>
+        {% if conquista.url_evidencia %}
+        <section>
+            <h4>Evidência</h4>
+            <ul><li><a href="{{ conquista.url_evidencia }}" target="_blank">Ver evidência</a></li></ul>
+        </section>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

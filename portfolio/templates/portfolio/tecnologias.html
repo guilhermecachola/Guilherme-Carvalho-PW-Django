@@ -1,0 +1,44 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>Tecnologias</h2>
+
+{% if request.user.is_authenticated and request.user.groups.filter(name='gestor-portfolio').exists %}
+    <a href="{% url 'tecnologia_criar' %}">+ Nova Tecnologia</a>
+{% endif %}
+
+<section>
+    {% for tec in tecnologias %}
+    <article>
+        <header>
+            <h3>{{ tec.nome }}</h3>
+            <p>{{ tec.get_categoria_display }} — Interesse: {{ tec.nivel_interesse }}/5</p>
+        </header>
+
+        {% if tec.logo %}
+            <img src="{{ tec.logo.url }}" alt="{{ tec.nome }}">
+        {% endif %}
+
+        <section>
+            <h4>Descrição</h4>
+            <ul><li>{{ tec.descricao }}</li></ul>
+        </section>
+
+        <section>
+            <h4>Site oficial</h4>
+            <ul><li><a href="{{ tec.url_oficial }}" target="_blank">{{ tec.url_oficial }}</a></li></ul>
+        </section>
+
+        {% if request.user.is_authenticated and request.user.groups.filter(name='gestor-portfolio').exists %}
+        <section>
+            <h4>Ações</h4>
+            <ul>
+                <li><a href="{% url 'tecnologia_editar' tec.id %}">Editar</a></li>
+                <li><a href="{% url 'tecnologia_apagar' tec.id %}">Apagar</a></li>
+            </ul>
+        </section>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

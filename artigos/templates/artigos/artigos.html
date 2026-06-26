@@ -1,0 +1,76 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>Artigos</h2>
+
+{% if request.user.is_authenticated and request.user.groups.filter(name='autores').exists %}
+    <a href="{% url 'artigo_criar' %}">+ Novo Artigo</a>
+{% endif %}
+
+<section>
+    {% for artigo in artigos %}
+    <article>
+        <header>
+            <h3>{{ artigo.titulo }}</h3>
+            <p>{{ artigo.autor.username }} — {{ artigo.data_criacao|date:"d/m/Y" }}</p>
+        </header>
+
+        {% if artigo.fotografia %}
+            <img src="{{ artigo.fotografia.url }}" alt="{{ artigo.titulo }}">
+        {% endif %}
+
+        <section>
+            <h4>Texto</h4>
+            <ul><li>{{ artigo.texto }}</li></ul>
+        </section>
+
+        {% if artigo.link_externo %}
+        <section>
+            <h4>Link</h4>
+            <ul><li><a href="{{ artigo.link_externo }}" target="_blank">{{ artigo.link_externo }}</a></li></ul>
+        </section>
+        {% endif %}
+
+        <section>
+            <h4>Likes</h4>
+            <ul>
+                <li>
+                    {{ artigo.likes.count }} gosto(s)
+                    <a href="{% url 'artigo_like' artigo.id %}">
+                        {% if request.user in artigo.likes.all %}👎 Retirar gosto{% else %}👍 Gostar{% endif %}
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h4>Comentários</h4>
+            <ul>
+                {% for comentario in artigo.comentarios.all %}
+                    <li><strong>{{ comentario.autor.username }}</strong> — {{ comentario.data_criacao|date:"d/m/Y" }}: {{ comentario.texto }}</li>
+                {% empty %}
+                    <li>Sem comentários</li>
+                {% endfor %}
+            </ul>
+            {% if request.user.is_authenticated %}
+            <form method="post" action="{% url 'comentario_criar' artigo.id %}">
+                {% csrf_token %}
+                <input type="text" name="texto" placeholder="Escreve um comentário..." required>
+                <button type="submit">Comentar</button>
+            </form>
+            {% endif %}
+        </section>
+
+        {% if request.user.is_authenticated and artigo.autor == request.user %}
+        <section>
+            <h4>Ações</h4>
+            <ul>
+                <li><a href="{% url 'artigo_editar' artigo.id %}">Editar</a></li>
+                <li><a href="{% url 'artigo_apagar' artigo.id %}">Apagar</a></li>
+            </ul>
+        </section>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

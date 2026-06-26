@@ -1,0 +1,25 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>TFCs</h2>
+<section>
+    {% for tfc in tfcs %}
+    <article>
+        <header>
+            <h3>{{ tfc.titulo }}</h3>
+            <p>{{ tfc.autor }} — {{ tfc.ano }} — Classificação: {{ tfc.classificacao }}/20</p>
+        </header>
+        <section>
+            <h4>Resumo</h4>
+            <ul><li>{{ tfc.resumo }}</li></ul>
+        </section>
+        {% if tfc.url_documento %}
+        <section>
+            <h4>Documento</h4>
+            <ul><li><a href="{{ tfc.url_documento }}" target="_blank">Ver documento</a></li></ul>
+        </section>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

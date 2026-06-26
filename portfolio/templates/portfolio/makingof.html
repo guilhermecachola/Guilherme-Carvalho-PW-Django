@@ -1,0 +1,43 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>Making Of</h2>
+<section>
+    {% for entry in makingof %}
+    <article>
+        <header>
+            <h3>{{ entry.entidade_relacionada }}</h3>
+            <p>{{ entry.data_registo }}</p>
+        </header>
+        <section>
+            <h4>Descrição</h4>
+            <ul><li>{{ entry.descricao }}</li></ul>
+        </section>
+        {% if entry.decisoes %}
+        <section>
+            <h4>Decisões</h4>
+            <ul><li>{{ entry.decisoes }}</li></ul>
+        </section>
+        {% endif %}
+        {% if entry.erros_correcoes %}
+        <section>
+            <h4>Erros e correções</h4>
+            <ul><li>{{ entry.erros_correcoes }}</li></ul>
+        </section>
+        {% endif %}
+        {% if entry.uso_ia %}
+        <section>
+            <h4>Uso de IA</h4>
+            <ul><li>{{ entry.uso_ia }}</li></ul>
+        </section>
+        {% endif %}
+        {% if entry.foto_papel %}
+        <section>
+            <h4>Foto do papel</h4>
+            <ul><li><img src="{{ entry.foto_papel.url }}" alt="Foto do papel"></li></ul>
+        </section>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

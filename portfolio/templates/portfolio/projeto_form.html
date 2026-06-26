@@ -1,0 +1,34 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>{% if projeto %}Editar{% else %}Criar{% endif %} Projeto</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p><label>Título:<br><input type="text" name="titulo" value="{{ projeto.titulo }}" required></label></p>
+    <p><label>Descrição:<br><textarea name="descricao">{{ projeto.descricao }}</textarea></label></p>
+    <p><label>Conceitos aplicados:<br><textarea name="conceitos_aplicados">{{ projeto.conceitos_aplicados }}</textarea></label></p>
+    <p><label>URL GitHub:<br><input type="url" name="url_github" value="{{ projeto.url_github }}"></label></p>
+    <p><label>URL Demo:<br><input type="url" name="url_demo" value="{{ projeto.url_demo }}"></label></p>
+    <p><label>URL Vídeo:<br><input type="url" name="video_url" value="{{ projeto.video_url }}"></label></p>
+    <p><label>Ano:<br><input type="number" name="ano" value="{{ projeto.ano }}"></label></p>
+    <p><label>Unidade Curricular:<br>
+        <select name="unidade_curricular">
+            <option value="">-- Nenhuma --</option>
+            {% for uc in ucs %}
+                <option value="{{ uc.id }}" {% if projeto.unidade_curricular.id == uc.id %}selected{% endif %}>{{ uc.nome }}</option>
+            {% endfor %}
+        </select>
+    </label></p>
+    <p><label>Tecnologias:<br>
+        <select name="tecnologias" multiple>
+            {% for tec in tecnologias %}
+                <option value="{{ tec.id }}" {% if tec in projeto.tecnologias.all %}selected{% endif %}>{{ tec.nome }}</option>
+            {% endfor %}
+        </select>
+    </label></p>
+    <p><label>Imagem:<br><input type="file" name="imagem"></label></p>
+    <p><button type="submit">Guardar</button></p>
+</form>
+<a href="{% url 'projetos' %}">Cancelar</a>
+{% endblock %}

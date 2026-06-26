@@ -1,0 +1,170 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>Sobre esta aplicação</h2>
+
+<section>
+    <article>
+        <header>
+            <h3>Arquitetura MVT do Django</h3>
+        </header>
+        <section>
+            <h4>Diagrama</h4>
+            <ul>
+                <li><em>Insere aqui a fotografia do desenho em papel da arquitetura MVT</em></li>
+            </ul>
+        </section>
+        <section>
+            <h4>Componentes</h4>
+            <ul>
+                <li><strong>Model</strong> — define a estrutura dos dados e comunica com a base de dados. Cada modelo corresponde a uma tabela.</li>
+                <li><strong>View</strong> — recebe o pedido HTTP, consulta os modelos e devolve uma resposta (normalmente um template renderizado).</li>
+                <li><strong>Template</strong> — ficheiro HTML que recebe os dados da view e os apresenta ao utilizador.</li>
+            </ul>
+        </section>
+        <section>
+            <h4>Fluxo de informação</h4>
+            <ul>
+                <li>1. O browser faz um pedido HTTP para uma URL.</li>
+                <li>2. O Django consulta o urls.py e encaminha para a view correspondente.</li>
+                <li>3. A view consulta os modelos (base de dados) e recolhe os dados necessários.</li>
+                <li>4. A view passa os dados ao template HTML.</li>
+                <li>5. O template é renderizado e devolvido ao browser.</li>
+            </ul>
+        </section>
+        <section>
+            <h4>Vídeo tutorial</h4>
+            <ul>
+                <li>
+                    <iframe width="560" height="315"
+                        src="SUBSTITUI_PELO_URL_DO_TEU_VIDEO"
+                        title="Tutorial Django"
+                        frameborder="0"
+                        allowfullscreen>
+                    </iframe>
+                </li>
+            </ul>
+        </section>
+    </article>
+</section>
+
+<section>
+    <article>
+        <header>
+            <h3>Modelação</h3>
+        </header>
+        <section>
+            <h4>Diagrama Entidade-Relação</h4>
+            <ul>
+                <li><em>Insere aqui a fotografia do DER feito em papel</em></li>
+            </ul>
+        </section>
+        <section>
+            <h4>Modelos Django</h4>
+            <ul>
+                <li>Licenciatura</li>
+                <li>UnidadeCurricular</li>
+                <li>Docente</li>
+                <li>Tecnologia</li>
+                <li>TipoTecnologia</li>
+                <li>Projeto</li>
+                <li>TFC</li>
+                <li>Competencia</li>
+                <li>Formacao</li>
+                <li>MakingOf</li>
+                <li>Conquista</li>
+            </ul>
+        </section>
+    </article>
+</section>
+
+<section>
+    <article>
+        <header>
+            <h3>Tecnologias utilizadas</h3>
+        </header>
+        {% for tipo in tipos %}
+        <section>
+            <h4>{{ tipo.nome }}</h4>
+            <ul>
+                {% for tec in tipo.tecnologias.all %}
+                    <li>
+                        {% if tec.logo %}<img src="{{ tec.logo.url }}" alt="{{ tec.nome }}" style="width:30px; vertical-align:middle;">{% endif %}
+                        <strong>{{ tec.nome }}</strong> — {{ tec.descricao }}
+                    </li>
+                {% empty %}
+                    <li>Sem tecnologias neste tipo</li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endfor %}
+    </article>
+</section>
+
+<section>
+    <article>
+        <header>
+            <h3>Estrutura de navegação</h3>
+        </header>
+        <section>
+            <h4>Mapa de páginas</h4>
+            <ul>
+                <li><em>Insere aqui o desenho do mapa de navegação</em></li>
+            </ul>
+        </section>
+    </article>
+</section>
+
+<section>
+    <article>
+        <header>
+            <h3>Repositório GitHub</h3>
+        </header>
+        <section>
+            <h4>Link</h4>
+            <ul>
+                <li><a href="https://github.com/guilhermecachola/GuilhermeCarvalho-PW" target="_blank">github.com/guilhermecachola/GuilhermeCarvalho-PW</a></li>
+            </ul>
+        </section>
+        <section>
+            <h4>Como foi usado</h4>
+            <ul>
+                <li>Controlo de versões com commits por cada funcionalidade implementada.</li>
+                <li>Pipeline CI/CD para deploy automático em produção.</li>
+                <li>Permite rastrear erros e reverter alterações facilmente.</li>
+            </ul>
+        </section>
+    </article>
+</section>
+
+<section>
+    <article>
+        <header>
+            <h3>Making Of</h3>
+        </header>
+        <section>
+            <h4>Resumo</h4>
+            <ul>
+                <li>Esta aplicação foi desenvolvida no âmbito da unidade curricular de Programação Web, implementando um portfólio académico com Django.</li>
+            </ul>
+        </section>
+        <section>
+            <h4>Registos</h4>
+            <ul>
+                {% for entry in makingof %}
+                    <li><strong>{{ entry.entidade_relacionada }}</strong> — {{ entry.descricao }}</li>
+                {% empty %}
+                    <li>Sem registos ainda</li>
+                {% endfor %}
+            </ul>
+        </section>
+        <section>
+            <h4>Detalhes</h4>
+            <ul>
+                <li><a href="{% url 'makingof' %}">Ver Making Of completo</a></li>
+            </ul>
+        </section>
+    </article>
+</section>
+
+{% endblock %}

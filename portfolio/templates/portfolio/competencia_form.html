@@ -1,0 +1,29 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>{% if competencia %}Editar{% else %}Criar{% endif %} Competência</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <p><label>Nome:<br><input type="text" name="nome" value="{{ competencia.nome }}" required></label></p>
+    <p><label>Categoria:<br><input type="text" name="categoria" value="{{ competencia.categoria }}"></label></p>
+    <p><label>Nível:<br><input type="text" name="nivel" value="{{ competencia.nivel }}"></label></p>
+    <p><label>Descrição:<br><textarea name="descricao">{{ competencia.descricao }}</textarea></label></p>
+    <p><label>Tecnologias:<br>
+        <select name="tecnologias" multiple>
+            {% for tec in tecnologias %}
+                <option value="{{ tec.id }}" {% if tec in competencia.tecnologias.all %}selected{% endif %}>{{ tec.nome }}</option>
+            {% endfor %}
+        </select>
+    </label></p>
+    <p><label>Projetos:<br>
+        <select name="projetos" multiple>
+            {% for proj in projetos %}
+                <option value="{{ proj.id }}" {% if proj in competencia.projetos.all %}selected{% endif %}>{{ proj.titulo }}</option>
+            {% endfor %}
+        </select>
+    </label></p>
+    <p><button type="submit">Guardar</button></p>
+</form>
+<a href="{% url 'competencias' %}">Cancelar</a>
+{% endblock %}

@@ -1,0 +1,114 @@
+[
+{
+  "model": "escola.professor",
+  "pk": 1,
+  "fields": {
+    "nome": "José Mourinho",
+    "email": "j.m@gmail.com"
+  }
+},
+{
+  "model": "escola.professor",
+  "pk": 2,
+  "fields": {
+    "nome": "Rui Borges",
+    "email": "r.b@gmail.com"
+  }
+},
+{
+  "model": "escola.professor",
+  "pk": 3,
+  "fields": {
+    "nome": "Rui Costa",
+    "email": "r.c@gmail.com"
+  }
+},
+{
+  "model": "escola.aluno",
+  "pk": 1,
+  "fields": {
+    "nome": "Cristiano Ronaldo",
+    "numero": "7"
+  }
+},
+{
+  "model": "escola.aluno",
+  "pk": 2,
+  "fields": {
+    "nome": "Nuno Mendes",
+    "numero": "11"
+  }
+},
+{
+  "model": "escola.aluno",
+  "pk": 3,
+  "fields": {
+    "nome": "Bruno Fernandes",
+    "numero": "13"
+  }
+},
+{
+  "model": "escola.aluno",
+  "pk": 4,
+  "fields": {
+    "nome": "Gonçalo Ramos",
+    "numero": "98"
+  }
+},
+{
+  "model": "escola.aluno",
+  "pk": 5,
+  "fields": {
+    "nome": "Pedro Gonçalves",
+    "numero": "21"
+  }
+},
+{
+  "model": "escola.aluno",
+  "pk": 6,
+  "fields": {
+    "nome": "Pedro Neto",
+    "numero": "16"
+  }
+},
+{
+  "model": "escola.curso",
+  "pk": 1,
+  "fields": {
+    "nome": "Python",
+    "imagem": "cursos/python.png",
+    "professor": 1,
+    "alunos": [
+      1,
+      2,
+      3
+    ]
+  }
+},
+{
+  "model": "escola.curso",
+  "pk": 2,
+  "fields": {
+    "nome": "CSS",
+    "imagem": "cursos/css.png",
+    "professor": 2,
+    "alunos": [
+      4,
+      5,
+      6
+    ]
+  }
+},
+{
+  "model": "escola.curso",
+  "pk": 3,
+  "fields": {
+    "nome": "Django",
+    "imagem": "cursos/django.png",
+    "professor": 3,
+    "alunos": [
+      6
+    ]
+  }
+}
+]

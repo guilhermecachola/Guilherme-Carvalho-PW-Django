@@ -1,0 +1,11 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>Apagar Formação</h2>
+<p>Tens a certeza que queres apagar a formação <strong>{{ formacao.titulo }}</strong>?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Sim, apagar</button>
+</form>
+<a href="{% url 'formacoes' %}">Cancelar</a>
+{% endblock %}

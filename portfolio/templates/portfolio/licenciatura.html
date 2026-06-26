@@ -1,0 +1,23 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>Licenciatura</h2>
+<section>
+    {% for lic in licenciaturas %}
+    <article>
+        <header>
+            <h3>{{ lic.nome }}</h3>
+            <p>{{ lic.grau }} — {{ lic.duracao_anos }} anos</p>
+        </header>
+        <section>
+            <h4>Descrição</h4>
+            <p>{{ lic.descricao }}</p>
+        </section>
+        <section>
+            <h4>Site oficial</h4>
+            <ul><li><a href="{{ lic.url_oficial }}" target="_blank">{{ lic.url_oficial }}</a></li></ul>
+        </section>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

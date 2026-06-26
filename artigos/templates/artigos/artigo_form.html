@@ -1,0 +1,19 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>{% if artigo %}Editar{% else %}Criar{% endif %} Artigo</h2>
+
+<section>
+    <article>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p><label>Título:<br><input type="text" name="titulo" value="{{ artigo.titulo }}" required></label></p>
+            <p><label>Texto:<br><textarea name="texto">{{ artigo.texto }}</textarea></label></p>
+            <p><label>Link externo:<br><input type="url" name="link_externo" value="{{ artigo.link_externo }}"></label></p>
+            <p><label>Fotografia:<br><input type="file" name="fotografia"></label></p>
+            <p><button type="submit">Guardar</button></p>
+        </form>
+        <a href="{% url 'artigos' %}">Cancelar</a>
+    </article>
+</section>
+{% endblock %}

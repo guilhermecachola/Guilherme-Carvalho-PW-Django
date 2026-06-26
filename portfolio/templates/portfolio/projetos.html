@@ -1,0 +1,58 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>Projetos</h2>
+
+{% if request.user.is_authenticated and request.user.groups.filter(name='gestor-portfolio').exists %}
+    <a href="{% url 'projeto_criar' %}">+ Novo Projeto</a>
+{% endif %}
+
+<section>
+    {% for projeto in projetos %}
+    <article>
+        <header>
+            <h3>{{ projeto.titulo }}</h3>
+            <p>{{ projeto.ano }} — {{ projeto.unidade_curricular }}</p>
+        </header>
+
+        {% if projeto.imagem %}
+            <img src="{{ projeto.imagem.url }}" alt="{{ projeto.titulo }}">
+        {% endif %}
+
+        <section>
+            <h4>Descrição</h4>
+            <ul><li>{{ projeto.descricao }}</li></ul>
+        </section>
+
+        <section>
+            <h4>Tecnologias</h4>
+            <ul>
+                {% for tec in projeto.tecnologias.all %}
+                    <li>{{ tec.nome }}</li>
+                {% empty %}
+                    <li>Sem tecnologias</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section>
+            <h4>Links</h4>
+            <ul>
+                {% if projeto.url_github %}<li><a href="{{ projeto.url_github }}" target="_blank">GitHub</a></li>{% endif %}
+                {% if projeto.url_demo %}<li><a href="{{ projeto.url_demo }}" target="_blank">Demo</a></li>{% endif %}
+            </ul>
+        </section>
+
+        {% if request.user.is_authenticated and request.user.groups.filter(name='gestor-portfolio').exists %}
+        <section>
+            <h4>Ações</h4>
+            <ul>
+                <li><a href="{% url 'projeto_editar' projeto.id %}">Editar</a></li>
+                <li><a href="{% url 'projeto_apagar' projeto.id %}">Apagar</a></li>
+            </ul>
+        </section>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}
