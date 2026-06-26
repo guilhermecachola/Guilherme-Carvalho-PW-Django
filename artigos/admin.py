@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Artigo, Comentario
+from .models import Artigo, Comentario, Rating
 
 @admin.register(Artigo)
 class ArtigoAdmin(admin.ModelAdmin):
@@ -9,5 +9,9 @@ class ArtigoAdmin(admin.ModelAdmin):
 
 @admin.register(Comentario)
 class ComentarioAdmin(admin.ModelAdmin):
-    list_display = ('artigo', 'autor', 'data_criacao')
-    search_fields = ('autor__username',)
+    list_display = ('artigo', 'autor', 'nome', 'data_criacao')
+    search_fields = ('autor__username', 'nome')
+
+@admin.register(Rating)
+class RatingAdmin(admin.ModelAdmin):
+    list_display = ('artigo', 'pontuacao', 'ip')

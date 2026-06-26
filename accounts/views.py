@@ -24,7 +24,7 @@ def registo_view(request):
         form = RegistoForm(request.POST)
         if form.is_valid():
             user = form.save()
-            grupo, _ = Group.objects.get_or_create(name='autores')
+            grupo, _ = Group.objects.get_or_create(name='bloggers')
             user.groups.add(grupo)
             return redirect('login')
     else:
