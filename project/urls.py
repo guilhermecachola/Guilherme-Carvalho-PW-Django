@@ -8,4 +8,5 @@ urlpatterns = [
     path("portfolio/", include("portfolio.urls")),
     path("accounts/", include("accounts.urls")),
     path("artigos/", include("artigos.urls")),
-    path("", lambda request: redirect('portfolio_index')),]
+    path("", lambda request: redirect('portfolio_index')),
+]
