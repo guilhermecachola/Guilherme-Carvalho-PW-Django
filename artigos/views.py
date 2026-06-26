@@ -5,12 +5,12 @@ from .models import Artigo, Comentario, Rating
 
 def artigos_view(request):
     artigos = Artigo.objects.select_related('autor').prefetch_related('comentarios', 'likes', 'ratings').all().order_by('-data_criacao')
-    is_autor = request.user.is_authenticated and request.user.groups.filter(name='bloggers').exists()
+    is_autor = request.user.is_authenticated and (request.user.groups.filter(name='bloggers').exists() or request.user.is_superuser)
     return render(request, 'artigos/artigos.html', {'artigos': artigos, 'is_autor': is_autor})
 
 @login_required
 def artigo_criar(request):
-    if not request.user.groups.filter(name='bloggers').exists():
+    if not request.user.groups.filter(name='bloggers').exists() and not request.user.is_superuser:
         return redirect('artigos')
     if request.method == 'POST':
         Artigo.objects.create(
