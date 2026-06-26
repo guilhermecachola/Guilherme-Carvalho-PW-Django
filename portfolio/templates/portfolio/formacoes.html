@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Formações</h2>
 
-{% if request.user.is_authenticated and request.user.groups.filter(name='gestor-portfolio').exists %}
+{% if is_gestor %}
     <a href="{% url 'formacao_criar' %}">+ Nova Formação</a>
 {% endif %}
 
@@ -29,7 +29,7 @@
         </section>
         {% endif %}
 
-        {% if request.user.is_authenticated and request.user.groups.filter(name='gestor-portfolio').exists %}
+        {% if is_gestor %}
         <section>
             <h4>Ações</h4>
             <ul>

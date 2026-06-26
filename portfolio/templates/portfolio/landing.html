@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guilherme Carvalho</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+            background: #0f172a;
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HERO */
+        .hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .hero-badge {
+            background: rgba(37, 99, 235, 0.2);
+            border: 1px solid rgba(37, 99, 235, 0.4);
+            color: #93c5fd;
+            padding: 6px 16px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            letter-spacing: 0.05em;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 6vw, 72px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff 0%, #93c5fd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(16px, 2vw, 20px);
+            color: #94a3b8;
+            max-width: 500px;
+            line-height: 1.6;
+            margin-bottom: 48px;
+        }
+
+        /* MENU */
+        nav {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            transition: all 0.2s ease;
+        }
+
+        nav a:hover {
+            background: rgba(37, 99, 235, 0.3);
+            border-color: rgba(37, 99, 235, 0.5);
+            color: white;
+        }
+
+        nav a.primary {
+            background: #2563eb;
+            border-color: #2563eb;
+            color: white;
+        }
+
+        nav a.primary:hover {
+            background: #1d4ed8;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 16px;
+            font-size: 12px;
+            color: #475569;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-badge">Engenharia Informática — Universidade Lusófona</div>
+        <h1>Guilherme Carvalho</h1>
+        <p>Estudante de Engenharia Informática.</p>
+        <nav>
+            <a href="{% url 'licenciatura' %}" class="primary">Ver Portfolio</a>
+            <a href="{% url 'projetos' %}">Projetos</a>
+            <a href="{% url 'tecnologias' %}">Tecnologias</a>
+            <a href="{% url 'artigos' %}">Artigos</a>
+            <a href="{% url 'sobre' %}">Sobre</a>
+        </nav>
+    </section>
+
+    <footer>
+        &copy; 2026 Guilherme Carvalho
+    </footer>
+</body>
+</html>

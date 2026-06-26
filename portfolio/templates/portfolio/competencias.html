@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Competências</h2>
 
-{% if request.user.is_authenticated and request.user.groups.filter(name='gestor-portfolio').exists %}
+{% if is_gestor %}
     <a href="{% url 'competencia_criar' %}">+ Nova Competência</a>
 {% endif %}
 
@@ -44,7 +44,7 @@
             </ul>
         </section>
 
-        {% if request.user.is_authenticated and request.user.groups.filter(name='gestor-portfolio').exists %}
+        {% if is_gestor %}
         <section>
             <h4>Ações</h4>
             <ul>

@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import redirect
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -7,5 +8,4 @@ urlpatterns = [
     path("portfolio/", include("portfolio.urls")),
     path("accounts/", include("accounts.urls")),
     path("artigos/", include("artigos.urls")),
-    path("", include("escola.urls")),
-]
+    path("", lambda request: redirect('portfolio_index')),]

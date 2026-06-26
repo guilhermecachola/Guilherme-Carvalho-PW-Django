@@ -3,8 +3,8 @@ from .models import Licenciatura, UnidadeCurricular, Tecnologia, TipoTecnologia,
 from django.contrib.auth.decorators import login_required
 
 def index_view(request):
-    return render(request, 'portfolio/index.html')
-
+    return render(request, 'portfolio/landing.html')
+    
 def licenciatura_view(request):
     licenciaturas = Licenciatura.objects.all()
     return render(request, 'portfolio/licenciatura.html', {'licenciaturas': licenciaturas})

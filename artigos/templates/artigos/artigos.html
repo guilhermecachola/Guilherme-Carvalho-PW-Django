@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Artigos</h2>
 
-{% if request.user.is_authenticated and request.user.groups.filter(name='autores').exists %}
+{% if is_autor %}
     <a href="{% url 'artigo_criar' %}">+ Novo Artigo</a>
 {% endif %}
 
@@ -52,7 +52,7 @@
                     <li>Sem comentários</li>
                 {% endfor %}
             </ul>
-            {% if request.user.is_authenticated %}
+            {% if is_autor %}
             <form method="post" action="{% url 'comentario_criar' artigo.id %}">
                 {% csrf_token %}
                 <input type="text" name="texto" placeholder="Escreve um comentário..." required>
@@ -61,7 +61,7 @@
             {% endif %}
         </section>
 
-        {% if request.user.is_authenticated and artigo.autor == request.user %}
+        {% if is_autor %}
         <section>
             <h4>Ações</h4>
             <ul>

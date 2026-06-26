@@ -5,8 +5,9 @@ from .models import Artigo, Comentario
 
 def artigos_view(request):
     artigos = Artigo.objects.select_related('autor').prefetch_related('comentarios', 'likes').all().order_by('-data_criacao')
-    return render(request, 'artigos/artigos.html', {'artigos': artigos})
-
+    is_autor = request.user.is_authenticated and request.user.groups.filter(name='autores').exists()
+    return render(request, 'artigos/artigos.html', {'artigos': artigos, 'is_autor': is_autor})
+    
 @login_required
 def artigo_criar(request):
     if not request.user.groups.filter(name='autores').exists():
